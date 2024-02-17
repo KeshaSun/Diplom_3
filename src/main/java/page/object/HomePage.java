@@ -2,7 +2,7 @@ package page.object;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import static edu.practicum.Urls.Urls.STELLAR_BURGERS_HOME_PAGE_URL;
+import static edu.practicum.Urls.STELLAR_BURGERS_HOME_PAGE_URL;
 public class HomePage {
     private final WebDriver webDriver;
 

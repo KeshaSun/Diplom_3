@@ -11,7 +11,7 @@ public class UserMethods {
     private static final String DELETE_CHANGING_USER = "/api/auth/user";
 
     @Step("POST /api/auth/register - создание пользователя")
-    public Response create(UserApi user){
+    public Response create(User user){
         return given()
                 .header("Content-type", "application/json")
                 .body(user)
@@ -19,7 +19,7 @@ public class UserMethods {
     }
 
     @Step("POST /api/auth/login - авторизация пользователя + почта, имя, пароль")
-    public Response login(UserApi user){
+    public Response login(User user){
         return given()
                 .header("Content-type", "application/json")
                 .body(user)
@@ -27,7 +27,7 @@ public class UserMethods {
     }
 
     @Step("POST /api/auth/login - получение токена & почта, имя, пароль")
-    public String getToken(UserApi user){
+    public String getToken(User user){
         Response response = given()
                 .header("Content-type", "application/json")
                 .body(user)
@@ -36,7 +36,7 @@ public class UserMethods {
     }
 
     @Step("DELETE /api/auth/user - удаление пользователя")
-    public Response delete(UserApi user){
+    public Response delete(User user){
         String token = getToken(user);
         return given()
                 .header("Content-type", "application/json")

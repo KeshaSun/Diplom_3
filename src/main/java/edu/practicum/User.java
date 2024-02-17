@@ -6,7 +6,7 @@ import lombok.*;
     @AllArgsConstructor
     @RequiredArgsConstructor
     @Builder
-    public class UserApi {
+    public class User {
 
         String email;
         String password;
