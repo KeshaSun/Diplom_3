@@ -19,7 +19,7 @@ import static org.openqa.selenium.devtools.v85.network.Network.clearBrowserCooki
 public class TransitionFromAccountTest {
 
     User user = randomUser();
-    UserMethods userApiMethod = new UserMethods();
+    UserMethods userMethod = new UserMethods();
 
     @Rule
     public BrowserRule rule;
@@ -39,7 +39,7 @@ public class TransitionFromAccountTest {
     @Before
     public void setUp(){
         RestAssured.baseURI = STELLAR_BURGERS_HOME_PAGE_URL;
-        userApiMethod.create(user);
+        userMethod.create(user);
 
         LoginPage login = new LoginPage(rule.getWebDriver());
         login
@@ -92,7 +92,7 @@ public class TransitionFromAccountTest {
 
     @After
     public void tearDown(){
-        userApiMethod.delete(user);
+        userMethod.delete(user);
         clearBrowserCookies();
     }
 }
