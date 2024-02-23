@@ -2,10 +2,7 @@ import io.qameta.allure.junit4.DisplayName;
 import edu.practicum.BrowserRule;
 import edu.practicum.ChromeRule;
 import edu.practicum.YandexRule;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.object.HomePage;
@@ -42,8 +39,9 @@ public class ConstructorTest {
         HomePage homePage = new HomePage(rule.getWebDriver());
 
         homePage
-                .clickOnSaucesButton()
-                .previousAndNextButtonsAreNotSelected();
+                .clickOnSaucesButton();
+        boolean isSauceSectionVisible = homePage.previousAndNextButtonsAreNotSelected();
+        Assert.assertTrue("Предыдущие и следующие кнопки не выбраны", isSauceSectionVisible);
     }
 
     @Test
@@ -52,8 +50,9 @@ public class ConstructorTest {
         HomePage homePage = new HomePage(rule.getWebDriver());
 
         homePage
-                .clickOnFillingsButton()
-                .previousTwoButtonsAreNotSelected();
+                .clickOnFillingsButton();
+        boolean isSauceSectionVisible = homePage.previousTwoButtonsAreNotSelected();
+        Assert.assertTrue("Предыдущие кнопки не выбраны", isSauceSectionVisible);
     }
 
     @Test
@@ -63,8 +62,9 @@ public class ConstructorTest {
 
         homePage
                 .clickOnFillingsButton()
-                .clickOnBunsButton()
-                .nextTwoButtonsAreNotSelected();
+                .clickOnBunsButton();
+        boolean isSauceSectionVisible = homePage.nextTwoButtonsAreNotSelected();
+        Assert.assertTrue("Следующие кнопки не выбраны", isSauceSectionVisible);
     }
 
     @After

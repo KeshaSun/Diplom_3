@@ -2,6 +2,12 @@ package page.object;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
 import static edu.practicum.Urls.STELLAR_BURGERS_HOME_PAGE_URL;
 public class HomePage {
     private final WebDriver webDriver;
@@ -69,6 +75,8 @@ public class HomePage {
         return this;
     }
 
+
+
     @Step("Клик по кнопке Начинки в конструкторе")
     public HomePage clickOnFillingsButton(){
         webDriver.findElement(fillingsButton).click();
@@ -82,23 +90,24 @@ public class HomePage {
     }
 
     @Step("При выбранной кнопке Булки следующие две кнопки конструктора не выбраны")
-    public HomePage nextTwoButtonsAreNotSelected(){
-        webDriver.findElement(followingButton1);
-        webDriver.findElement(followingButton2);
-        return this;
+    public boolean nextTwoButtonsAreNotSelected(){
+        WebElement followingButton_1 = webDriver.findElement(followingButton1);
+        WebElement followingButton_2 = webDriver.findElement(followingButton2);
+        return !followingButton_1.isSelected() && !followingButton_2.isSelected();
     }
 
     @Step("При выбранной кнопке Соусы предыдущая и следующая кнопка конструктора не выбраны")
-    public HomePage previousAndNextButtonsAreNotSelected(){
-        webDriver.findElement(precedingButton1);
-        webDriver.findElement(followingButton1);
-        return this;
+    public boolean previousAndNextButtonsAreNotSelected(){
+        WebElement precedingButton_1 = webDriver.findElement(precedingButton1);
+        WebElement followingButton_2 = webDriver.findElement(followingButton1);
+        return !precedingButton_1.isSelected() && !followingButton_2.isSelected();
     }
 
     @Step("При выбранной кнопке Начинки две предыдущие кнопки конструктора не выбраны")
-    public HomePage previousTwoButtonsAreNotSelected(){
-        webDriver.findElement(precedingButton1);
-        webDriver.findElement(precedingButton2);
-        return this;
+    public boolean previousTwoButtonsAreNotSelected(){
+        WebElement precedingButton_1 = webDriver.findElement(precedingButton1);
+        WebElement precedingButton_2 = webDriver.findElement(precedingButton2);
+        return !precedingButton_1.isSelected() && !precedingButton_2.isSelected();
     }
+
 }
