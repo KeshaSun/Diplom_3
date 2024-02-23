@@ -1,10 +1,7 @@
 import edu.practicum.*;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.object.HomePage;
@@ -57,8 +54,8 @@ public class GoToAccountTest {
 
         homePage
                 .clickOnPersonalAccountButtonHp();
-        personalAccount
-                .isDisplayedProfileText();
+        boolean isDisplayedProfileText = personalAccount.isDisplayedProfileText();
+        Assert.assertTrue("Текст отображается", isDisplayedProfileText);
     }
 
     @After

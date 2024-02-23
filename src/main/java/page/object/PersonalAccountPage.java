@@ -2,6 +2,7 @@ package page.object;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class PersonalAccountPage {
 
@@ -20,8 +21,8 @@ public class PersonalAccountPage {
 
     @Step("Проверка наличия текста Профиль в личном кабинете")
     public Boolean isDisplayedProfileText(){
-        Boolean displayed = webDriver.findElement(profileText).isDisplayed();
-        return displayed;
+        WebElement textInProfile = webDriver.findElement(profileText);
+        return textInProfile.isDisplayed();
     }
 
     @Step("Клик по кнопке Конструктор")
