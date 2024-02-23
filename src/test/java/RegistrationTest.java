@@ -3,10 +3,7 @@ import edu.practicum.*;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.object.RegistrationPage;
@@ -52,9 +49,8 @@ public class RegistrationTest {
                 .enterName(user.getName())
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .tapOnButtonRegistration()
-
-                .checkRegistrationSuccess();
+                .tapOnButtonRegistration();
+        Assert.assertTrue("Текст отображается", registration.checkRegistrationSuccess());
     }
 
     @Test
@@ -67,9 +63,9 @@ public class RegistrationTest {
                 .enterName(user.getName())
                 .enterEmail(user.getPassword())
                 .enterPassword(faker.bothify("29???"))
-                .tapOnButtonRegistration()
+                .tapOnButtonRegistration();
 
-                .checkIncorrectPassword();
+        Assert.assertTrue("Текст отображается", registration.checkRegistrationSuccess());
     }
 
     @After

@@ -1,10 +1,7 @@
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import edu.practicum.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.object.HomePage;
@@ -54,8 +51,10 @@ public class LoginTest {
                 .waitingForLoading()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .clickOnButtonLoginInFormAuth()
-                .checkHomePageAfterAuth();
+                .clickOnButtonLoginInFormAuth();
+
+        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Assert.assertTrue("Текст отображается", homePageAssert);
     }
 
     @Test
@@ -70,8 +69,9 @@ public class LoginTest {
         login
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .clickOnButtonLoginInFormAuth()
-                .checkHomePageAfterAuth();
+                .clickOnButtonLoginInFormAuth();
+        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Assert.assertTrue("Текст отображается", homePageAssert);
     }
 
     @Test
@@ -85,8 +85,9 @@ public class LoginTest {
         login
                 .clickOnLoginButtonInForms()
                 .enterEmail(user.getEmail())
-                .enterPassword(user.getPassword())
-                .checkHomePageAfterAuth();
+                .enterPassword(user.getPassword());
+                boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Assert.assertTrue("Текст отображается", homePageAssert);
     }
 
     @Test
@@ -99,8 +100,9 @@ public class LoginTest {
                 .clickOnLoginButtonInForms()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .clickOnButtonLoginInFormAuth()
-                .checkHomePageAfterAuth();
+                .clickOnButtonLoginInFormAuth();
+        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Assert.assertTrue("Домашняя ста", homePageAssert);
     }
 
     @After

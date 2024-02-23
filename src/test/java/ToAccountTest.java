@@ -2,10 +2,7 @@ import edu.practicum.User;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import edu.practicum.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.object.HomePage;
@@ -46,8 +43,7 @@ public class ToAccountTest {
                 .openLoginPage()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .clickOnButtonLoginInFormAuth()
-                .checkHomePageAfterAuth();
+                .clickOnButtonLoginInFormAuth();
     }
 
     @Test
@@ -58,8 +54,9 @@ public class ToAccountTest {
 
         homePage
                 .clickOnPersonalAccountButtonHp();
-        personalAccount
-                .isDisplayedProfileText();
+
+        boolean isDisplayedProfileText = personalAccount.isDisplayedProfileText();
+        Assert.assertTrue("Текст отображается", isDisplayedProfileText);
     }
 
     @After

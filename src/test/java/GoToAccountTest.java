@@ -42,8 +42,7 @@ public class GoToAccountTest {
                 .openLoginPage()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .clickOnButtonLoginInFormAuth()
-                .checkHomePageAfterAuth();
+                .clickOnButtonLoginInFormAuth();
     }
 
     @Test

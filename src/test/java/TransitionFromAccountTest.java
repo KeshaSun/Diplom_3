@@ -1,10 +1,7 @@
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import edu.practicum.*;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import page.object.HomePage;
@@ -46,8 +43,7 @@ public class TransitionFromAccountTest {
                 .openLoginPage()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
-                .clickOnButtonLoginInFormAuth()
-                .checkHomePageAfterAuth();
+                .clickOnButtonLoginInFormAuth();
     }
 
     @Test
@@ -72,6 +68,7 @@ public class TransitionFromAccountTest {
         homePage
                 .clickOnPersonalAccountButtonHp()
                 .clickOnLogoStellarBurgers()
+
                 .checkConstructorHeaderText();
     }
 
@@ -79,15 +76,15 @@ public class TransitionFromAccountTest {
     @DisplayName("Выход из личного кабинета")
     public void transitionFromAccountByExitButton()  {
         PersonalAccountPage personalAccount = new PersonalAccountPage(rule.getWebDriver());
-        LoginPage login = new LoginPage(rule.getWebDriver());
         HomePage homePage = new HomePage(rule.getWebDriver());
 
         homePage
                 .clickOnPersonalAccountButtonHp();
         personalAccount
                 .clickOnExitButton();
-        login
-                .isDisplayedEnterText();
+
+        boolean enteredTextDisplayed = LoginPage.isDisplayedEnterText();
+        Assert.assertTrue("Отображается введённый текст", enteredTextDisplayed);
     }
 
     @After

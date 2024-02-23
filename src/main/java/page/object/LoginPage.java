@@ -2,6 +2,7 @@ package page.object;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -9,9 +10,10 @@ import static edu.practicum.Urls.*;
 
 public class LoginPage {
 
-    private WebDriver webDriver;
+    private static WebDriver webDriver;
 
-    public LoginPage(WebDriver webDriver){this.webDriver = webDriver;}
+    public LoginPage(WebDriver webDriver){
+        LoginPage.webDriver = webDriver;}
 
     //Форма для ввода данных и входа зарегистрированного пользователя
     private final By formToLogin = By.xpath(".//form[@class = 'Auth_form__3qKeq mb-20']");
@@ -29,9 +31,9 @@ public class LoginPage {
     //Кнопка Войти в форме авторизации
     private final By loginButtonInFormAuth = By.xpath(".//button[text() = 'Войти']");
     //Главная страница после авторизации
-    private final By homePageAfterAuth = By.xpath(".//main[@class = 'App_componentContainer__2JC2W']");
+    private static final By homePageAfterAuth = By.xpath(".//main[@class = 'App_componentContainer__2JC2W']");
     //Заголовок Вход
-    private final By enterText = By.xpath(".//h2[text() = 'Вход']");
+    private static final By enterText = By.xpath(".//h2[text() = 'Вход']");
 
     @Step("Открытие страницы авторизации")
     public LoginPage openLoginPage(){
@@ -79,18 +81,18 @@ public class LoginPage {
     }
 
     @Step("Проверка успешной авторизации")
-    public LoginPage checkHomePageAfterAuth(){
+    public static boolean checkHomePageAfterAuth(){
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(webDriver.findElement(homePageAfterAuth)));
-        webDriver.findElement(homePageAfterAuth).isDisplayed();
-        return this;
+        WebElement homePage = webDriver.findElement(homePageAfterAuth);
+        return homePage.isDisplayed();
     }
 
     @Step("Проверка наличия текста Вход")
-    public Boolean isDisplayedEnterText(){
+    public static boolean isDisplayedEnterText(){
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(webDriver.findElement(enterText)));
-        Boolean displayed = webDriver.findElement(enterText).isDisplayed();
-        return displayed;
+        WebElement enteredText = webDriver.findElement(enterText);
+        return enteredText.isDisplayed();
     }
 }
