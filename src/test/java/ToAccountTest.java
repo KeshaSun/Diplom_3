@@ -54,9 +54,7 @@ public class ToAccountTest {
 
         homePage
                 .clickOnPersonalAccountButtonHp();
-
-        boolean isDisplayedProfileText = personalAccount.isDisplayedProfileText();
-        Assert.assertTrue("Текст отображается", isDisplayedProfileText);
+        Assert.assertTrue("Текст отображается", personalAccount.isDisplayedProfileText());
     }
 
     @After

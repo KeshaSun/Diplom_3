@@ -14,7 +14,7 @@ import static org.openqa.selenium.devtools.v85.network.Network.clearBrowserCooki
 @RunWith(Parameterized.class)
 public class LoginTest {
 
-    private User user = randomUser();
+    private final User user = randomUser();
     UserMethods userApiMethod = new UserMethods();
 
     @Rule
@@ -86,7 +86,7 @@ public class LoginTest {
                 .clickOnLoginButtonInForms()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword());
-                boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
         Assert.assertTrue("Текст отображается", homePageAssert);
     }
 

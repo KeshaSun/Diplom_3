@@ -40,8 +40,7 @@ public class ConstructorTest {
 
         homePage
                 .clickOnSaucesButton();
-        boolean isSauceSectionVisible = homePage.previousAndNextButtonsAreNotSelected();
-        Assert.assertTrue("Предыдущие и следующие кнопки не выбраны", isSauceSectionVisible);
+        Assert.assertTrue("Предыдущие и следующие кнопки не выбраны", homePage.previousAndNextButtonsAreNotSelected());
     }
 
     @Test
@@ -51,8 +50,7 @@ public class ConstructorTest {
 
         homePage
                 .clickOnFillingsButton();
-        boolean isSauceSectionVisible = homePage.previousTwoButtonsAreNotSelected();
-        Assert.assertTrue("Предыдущие кнопки не выбраны", isSauceSectionVisible);
+        Assert.assertTrue("Предыдущие кнопки не выбраны", homePage.previousTwoButtonsAreNotSelected());
     }
 
     @Test
@@ -63,8 +61,7 @@ public class ConstructorTest {
         homePage
                 .clickOnFillingsButton()
                 .clickOnBunsButton();
-        boolean isSauceSectionVisible = homePage.nextTwoButtonsAreNotSelected();
-        Assert.assertTrue("Следующие кнопки не выбраны", isSauceSectionVisible);
+        Assert.assertTrue("Следующие кнопки не выбраны", homePage.nextTwoButtonsAreNotSelected());
     }
 
     @After
