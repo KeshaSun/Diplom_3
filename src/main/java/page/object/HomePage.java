@@ -58,9 +58,8 @@ public class HomePage {
     }
 
     @Step("Проверка наличия заголовка конструктора на главной странице")
-    public HomePage checkConstructorHeaderText(){
-        webDriver.findElement(constructorHeaderText).isDisplayed();
-        return this;
+    public boolean checkConstructorHeaderText(){
+        return webDriver.findElement(constructorHeaderText).isDisplayed();
     }
 
     @Step("Клик по логотипу Stellar Burgers")

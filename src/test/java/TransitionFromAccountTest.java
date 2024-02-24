@@ -56,8 +56,7 @@ public class TransitionFromAccountTest {
                 .clickOnPersonalAccountButtonHp();
         personalAccount
                 .clickOnConstructorButton();
-        homePage
-                .checkConstructorHeaderText();
+        Assert.assertTrue("Проверка текста заголовка", homePage.checkConstructorHeaderText());
     }
 
     @Test
@@ -67,9 +66,9 @@ public class TransitionFromAccountTest {
 
         homePage
                 .clickOnPersonalAccountButtonHp()
-                .clickOnLogoStellarBurgers()
+                .clickOnLogoStellarBurgers();
 
-                .checkConstructorHeaderText();
+        Assert.assertTrue("Проверка текста заголовка", homePage.checkConstructorHeaderText());
     }
 
     @Test

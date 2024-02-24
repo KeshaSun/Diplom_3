@@ -50,7 +50,7 @@ public class RegistrationTest {
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
                 .tapOnButtonRegistration();
-        Assert.assertTrue("Текст отображается", registration.checkRegistrationSuccess());
+        Assert.assertTrue("Успешная регистрация", registration.checkRegistrationSuccess());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class RegistrationTest {
                 .enterPassword(faker.bothify("29???"))
                 .tapOnButtonRegistration();
 
-        Assert.assertTrue("Текст отображается", registration.checkRegistrationSuccess());
+        Assert.assertTrue("Успешная регистрация", registration.checkRegistrationSuccess());
     }
 
     @After
