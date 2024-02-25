@@ -89,21 +89,21 @@ public class HomePage {
     }
 
     @Step("При выбранной кнопке Булки следующие две кнопки конструктора не выбраны")
-    public boolean nextTwoButtonsAreNotSelected(){
+    public Boolean nextTwoButtonsAreNotSelected(){
         WebElement followingButton_1 = webDriver.findElement(followingButton1);
         WebElement followingButton_2 = webDriver.findElement(followingButton2);
         return !followingButton_1.isSelected() && !followingButton_2.isSelected();
     }
 
     @Step("При выбранной кнопке Соусы предыдущая и следующая кнопка конструктора не выбраны")
-    public boolean previousAndNextButtonsAreNotSelected(){
+    public Boolean previousAndNextButtonsAreNotSelected(){
         WebElement precedingButton_1 = webDriver.findElement(precedingButton1);
         WebElement followingButton_2 = webDriver.findElement(followingButton1);
         return !precedingButton_1.isSelected() && !followingButton_2.isSelected();
     }
 
     @Step("При выбранной кнопке Начинки две предыдущие кнопки конструктора не выбраны")
-    public boolean previousTwoButtonsAreNotSelected(){
+    public Boolean previousTwoButtonsAreNotSelected(){
         WebElement precedingButton_1 = webDriver.findElement(precedingButton1);
         WebElement precedingButton_2 = webDriver.findElement(precedingButton2);
         return !precedingButton_1.isSelected() && !precedingButton_2.isSelected();

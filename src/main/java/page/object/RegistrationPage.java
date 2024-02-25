@@ -63,7 +63,7 @@ public class RegistrationPage {
     }
 
     @Step("Проверка успешной регистрации")
-    public boolean checkRegistrationSuccess(){
+    public Boolean checkRegistrationSuccess(){
         return webDriver.findElement(formToLogin).isDisplayed();
     }
 

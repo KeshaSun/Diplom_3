@@ -20,7 +20,7 @@ public class PersonalAccountPage {
     private final By exitButton = By.xpath(".//button[text() = 'Выход']");
 
     @Step("Проверка наличия текста Профиль в личном кабинете")
-    public boolean isDisplayedProfileText(){
+    public Boolean isDisplayedProfileText(){
         WebElement textInProfile = webDriver.findElement(profileText);
         return textInProfile.isDisplayed();
     }

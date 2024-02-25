@@ -1,9 +1,9 @@
+import edu.driver.ChooseBrowser;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import edu.practicum.*;
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.openqa.selenium.WebDriver;
 import page.object.HomePage;
 import page.object.LoginPage;
 import page.object.PersonalAccountPage;
@@ -12,33 +12,20 @@ import static edu.practicum.Urls.STELLAR_BURGERS_HOME_PAGE_URL;
 import static edu.practicum.UserGenerator.randomUser;
 import static org.openqa.selenium.devtools.v85.network.Network.clearBrowserCookies;
 
-@RunWith(Parameterized.class)
 public class TransitionFromAccountTest {
+    private WebDriver driver;
 
-    User user = randomUser();
-    UserMethods userMethod = new UserMethods();
+    private final User user = randomUser();
+    private final UserMethods userMethod = new UserMethods();
 
-    @Rule
-    public BrowserRule rule;
-
-    public TransitionFromAccountTest(BrowserRule rule) {
-        this.rule = rule;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getData() {
-        return new Object[][]{
-                { new YandexRule() },
-                { new ChromeRule() }
-        };
-    }
 
     @Before
     public void setUp(){
+        driver = ChooseBrowser.chooseWebDriver();
         RestAssured.baseURI = STELLAR_BURGERS_HOME_PAGE_URL;
         userMethod.create(user);
 
-        LoginPage login = new LoginPage(rule.getWebDriver());
+        LoginPage login = new LoginPage(driver);
         login
                 .openLoginPage()
                 .enterEmail(user.getEmail())
@@ -49,8 +36,8 @@ public class TransitionFromAccountTest {
     @Test
     @DisplayName("Переход из личного кабинета в конструктор - по клику на «Конструктор»")
     public void transitionFromAccountByConstructorButton(){
-        PersonalAccountPage personalAccount = new PersonalAccountPage(rule.getWebDriver());
-        HomePage homePage = new HomePage(rule.getWebDriver());
+        PersonalAccountPage personalAccount = new PersonalAccountPage(driver);
+        HomePage homePage = new HomePage(driver);
 
         homePage
                 .clickOnPersonalAccountButtonHp();
@@ -62,7 +49,7 @@ public class TransitionFromAccountTest {
     @Test
     @DisplayName("Переход из личного кабинета в конструктор - по клику на логотип Stellar Burgers")
     public void transitionFromAccountByLogo(){
-        HomePage homePage = new HomePage(rule.getWebDriver());
+        HomePage homePage = new HomePage(driver);
 
         homePage
                 .clickOnPersonalAccountButtonHp()
@@ -74,20 +61,23 @@ public class TransitionFromAccountTest {
     @Test
     @DisplayName("Выход из личного кабинета")
     public void transitionFromAccountByExitButton()  {
-        PersonalAccountPage personalAccount = new PersonalAccountPage(rule.getWebDriver());
-        HomePage homePage = new HomePage(rule.getWebDriver());
+        PersonalAccountPage personalAccount = new PersonalAccountPage(driver);
+        HomePage homePage = new HomePage(driver);
 
         homePage
                 .clickOnPersonalAccountButtonHp();
         personalAccount
                 .clickOnExitButton();
 
-        boolean enteredTextDisplayed = LoginPage.isDisplayedEnterText();
+        Boolean enteredTextDisplayed = LoginPage.isDisplayedEnterText();
         Assert.assertTrue("Отображается введённый текст", enteredTextDisplayed);
     }
 
     @After
     public void tearDown(){
+        if (driver != null) {
+            driver.quit();
+        }
         userMethod.delete(user);
         clearBrowserCookies();
     }

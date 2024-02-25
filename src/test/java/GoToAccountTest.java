@@ -1,43 +1,30 @@
+import edu.driver.ChooseBrowser;
 import edu.practicum.*;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.openqa.selenium.WebDriver;
 import page.object.HomePage;
 import page.object.LoginPage;
 import page.object.PersonalAccountPage;
+
 import static edu.practicum.Urls.STELLAR_BURGERS_HOME_PAGE_URL;
 import static edu.practicum.UserGenerator.randomUser;
 import static org.openqa.selenium.devtools.v85.network.Network.clearBrowserCookies;
 
-@RunWith(Parameterized.class)
 public class GoToAccountTest {
 
-    User user = randomUser();
-    UserMethods userApiMethod = new UserMethods();
-
-    @Rule
-    public BrowserRule rule;
-
-    public GoToAccountTest(BrowserRule rule) {
-        this.rule = rule;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getData() {
-        return new Object[][]{
-                { new YandexRule() },
-                { new ChromeRule() }
-        };
-    }
+    private final User user = randomUser();
+    private final UserMethods userApiMethod = new UserMethods();
+    protected WebDriver driver;
 
     @Before
     public void setUp(){
+        driver = ChooseBrowser.chooseWebDriver();
         RestAssured.baseURI = STELLAR_BURGERS_HOME_PAGE_URL;
         userApiMethod.create(user);
 
-        LoginPage login = new LoginPage(rule.getWebDriver());
+        LoginPage login = new LoginPage(driver);
         login
                 .openLoginPage()
                 .enterEmail(user.getEmail())
@@ -48,17 +35,21 @@ public class GoToAccountTest {
     @Test
     @DisplayName("Переход в личный кабинет по клику на «Личный кабинет»")
     public void checkGoToAccountByPersonalAccountButton(){
-        PersonalAccountPage personalAccount = new PersonalAccountPage(rule.getWebDriver());
-        HomePage homePage = new HomePage(rule.getWebDriver());
+        PersonalAccountPage personalAccount = new PersonalAccountPage(driver);
+        HomePage homePage = new HomePage(driver);
 
         homePage
                 .clickOnPersonalAccountButtonHp();
-        Assert.assertTrue("Текст отображается", personalAccount.isDisplayedProfileText());
+        boolean goToAccount = personalAccount.isDisplayedProfileText();
+        Assert.assertTrue("Текст отображается", goToAccount);
     }
 
     @After
-    public void tearDown(){
-        userApiMethod.delete(user);
-        clearBrowserCookies();
-    }
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+            userApiMethod.delete(user);
+            clearBrowserCookies();
+        }
 }

@@ -81,7 +81,7 @@ public class LoginPage {
     }
 
     @Step("Проверка успешной авторизации")
-    public static boolean checkHomePageAfterAuth(){
+    public static Boolean checkHomePageAfterAuth(){
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(webDriver.findElement(homePageAfterAuth)));
         WebElement homePage = webDriver.findElement(homePageAfterAuth);
@@ -89,7 +89,7 @@ public class LoginPage {
     }
 
     @Step("Проверка наличия текста Вход")
-    public static boolean isDisplayedEnterText(){
+    public static Boolean isDisplayedEnterText(){
         new WebDriverWait(webDriver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOf(webDriver.findElement(enterText)));
         WebElement enteredText = webDriver.findElement(enterText);

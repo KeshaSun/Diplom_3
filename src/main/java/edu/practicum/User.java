@@ -1,10 +1,8 @@
 package edu.practicum;
 import lombok.*;
 
-    @Getter
-    @Setter
+    @Data
     @AllArgsConstructor
-    @RequiredArgsConstructor
     @Builder
     public class User {
 

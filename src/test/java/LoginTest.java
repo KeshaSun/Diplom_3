@@ -1,9 +1,9 @@
+import edu.driver.ChooseBrowser;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import edu.practicum.*;
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.openqa.selenium.WebDriver;
 import page.object.HomePage;
 import page.object.LoginPage;
 import page.object.RegistrationPage;
@@ -11,29 +11,15 @@ import static edu.practicum.Urls.STELLAR_BURGERS_HOME_PAGE_URL;
 import static edu.practicum.UserGenerator.randomUser;
 import static org.openqa.selenium.devtools.v85.network.Network.clearBrowserCookies;
 
-@RunWith(Parameterized.class)
 public class LoginTest {
-
+    private WebDriver driver;
     private final User user = randomUser();
-    UserMethods userApiMethod = new UserMethods();
+    private final UserMethods userApiMethod = new UserMethods();
 
-    @Rule
-    public BrowserRule rule;
-
-    public LoginTest(BrowserRule rule) {
-        this.rule = rule;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getData() {
-        return new Object[][]{
-                { new YandexRule() },
-                { new ChromeRule() }
-        };
-    }
 
     @Before
     public void setUp(){
+        driver = ChooseBrowser.chooseWebDriver();
         RestAssured.baseURI = STELLAR_BURGERS_HOME_PAGE_URL;
         userApiMethod.create(user);
     }
@@ -41,8 +27,8 @@ public class LoginTest {
     @Test
     @DisplayName("Вход в аккаунт по кнопке «Войти в аккаунт» на главной")
     public void inputByButtonToEnterAccountHp(){
-        LoginPage login = new LoginPage(rule.getWebDriver());
-        HomePage homePage = new HomePage(rule.getWebDriver());
+        LoginPage login = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
 
         homePage
                 .openHomePage()
@@ -53,15 +39,15 @@ public class LoginTest {
                 .enterPassword(user.getPassword())
                 .clickOnButtonLoginInFormAuth();
 
-        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
         Assert.assertTrue("Текст отображается", homePageAssert);
     }
 
     @Test
     @DisplayName("Вход в аккаунт через кнопку «Личный кабинет» на главной")
     public void inputByPersonalAccountButtonHp(){
-        LoginPage login = new LoginPage(rule.getWebDriver());
-        HomePage homePage = new HomePage(rule.getWebDriver());
+        LoginPage login = new LoginPage(driver);
+        HomePage homePage = new HomePage(driver);
 
         homePage
                 .openHomePage()
@@ -70,15 +56,15 @@ public class LoginTest {
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
                 .clickOnButtonLoginInFormAuth();
-        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
         Assert.assertTrue("Текст отображается", homePageAssert);
     }
 
     @Test
     @DisplayName("Вход в аккаунт через кнопку в форме регистрации")
     public void inputByLoginButtonInFormRegistration(){
-        RegistrationPage registration = new RegistrationPage(rule.getWebDriver());
-        LoginPage login = new LoginPage(rule.getWebDriver());
+        RegistrationPage registration = new RegistrationPage(driver);
+        LoginPage login = new LoginPage(driver);
 
         registration
                 .openRegistrationPage();
@@ -86,14 +72,14 @@ public class LoginTest {
                 .clickOnLoginButtonInForms()
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword());
-        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
         Assert.assertTrue("Текст отображается", homePageAssert);
     }
 
     @Test
     @DisplayName("Вход в аккаунт через кнопку в форме восстановления пароля")
     public void inputByLoginButtonInFormRestorePassword(){
-        LoginPage login = new LoginPage(rule.getWebDriver());
+        LoginPage login = new LoginPage(driver);
 
         login
                 .openPasswordRestorePage()
@@ -101,12 +87,15 @@ public class LoginTest {
                 .enterEmail(user.getEmail())
                 .enterPassword(user.getPassword())
                 .clickOnButtonLoginInFormAuth();
-        boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
+        Boolean homePageAssert = LoginPage.checkHomePageAfterAuth();
         Assert.assertTrue("Домашняя ста", homePageAssert);
     }
 
     @After
     public void tearDown(){
+        if (driver != null) {
+            driver.quit();
+        }
         userApiMethod.delete(user);
         clearBrowserCookies();
     }
