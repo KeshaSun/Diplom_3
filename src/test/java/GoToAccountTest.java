@@ -40,8 +40,7 @@ public class GoToAccountTest {
 
         homePage
                 .clickOnPersonalAccountButtonHp();
-        boolean goToAccount = personalAccount.isDisplayedProfileText();
-        Assert.assertTrue("Текст отображается", goToAccount);
+        Assert.assertTrue("Текст отображается", personalAccount.isDisplayedProfileText());
     }
 
     @After

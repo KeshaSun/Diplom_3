@@ -3,6 +3,7 @@ import lombok.*;
 
     @Data
     @AllArgsConstructor
+    @RequiredArgsConstructor
     @Builder
     public class User {
 

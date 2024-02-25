@@ -31,13 +31,13 @@ public class HomePage {
     //Кнопка Булки в конструкторе
     private final By bunsButton = By.xpath(".//span[text() = 'Булки']");
     //Следующая кнопка1 конструктора не выбрана
-    private final By followingButton1 = By.xpath(".//div[@class = 'tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/following-sibling::div[1]");
+    private final By followingButton1 = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/following-sibling::div[1]");
     //Следующая кнопка2 конструктора не выбрана
-    private final By followingButton2 = By.xpath(".//div[@class = 'tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/following-sibling::div[2]");
+    private final By followingButton2 = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/following-sibling::div[2]");
     //Предыдущая кнопка1 конструктора не выбрана
-    private final By precedingButton1 = By.xpath(".//div[@class = 'tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/preceding-sibling::div[1]");
+    private final By precedingButton1 = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/preceding-sibling::div[1]");
     //Предыдущая кнопка2 конструктора не выбрана
-    private final By precedingButton2 = By.xpath(".//div[@class = 'tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect']/preceding-sibling::div[1]");
+    private final By precedingButton2 = By.xpath(".//div[contains(@class, 'tab_tab_type_current__2BEPc')]/preceding-sibling::div[2]");
 
     @Step("Открытие главной страницы")
     public HomePage openHomePage(){
